@@ -18,6 +18,10 @@ export interface DndState {
 }
  
 class Dnd extends React.Component<DndProps, DndState> {
+  handleDrop = (id: string) => {
+    const items = this.state.items.filter(element => element.id !== id);
+    this.setState({ items})
+  }
   state = {
     items:[
       {id: 'first', name: 'item 1'},
@@ -31,7 +35,7 @@ class Dnd extends React.Component<DndProps, DndState> {
     return (
       <div className={s.dndContainer}>
         <div>
-          {this.state.items.map(item => <Item key={item.id} item={item}/>)}
+          {this.state.items.map(item => <Item key={item.id} item={item} handleDrop={this.handleDrop}/>)}
         </div>
         <div>
           <Target/>
